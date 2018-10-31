@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    private static Connection connection;
+    private Connection connection;
     private int num;
 
     public void start() throws Exception {
@@ -39,11 +39,9 @@ public class Menu {
 
         switch (num) {
             case 0:
-                System.out.println("Pressed 0");
                 System.out.println("Exit");
                 System.exit(0);
             case 1:
-                System.out.println("Pressed 1");
                 System.out.println("Vehicle insurance status");
                 System.out.println("Give vehicle's plate!");
                 givenPlate = scanner.nextLine();
@@ -58,7 +56,6 @@ public class Menu {
                 f1.F1SQL();
                 break;
             case 2:
-                System.out.println("Pressed 2");
                 System.out.println("Forecoming expiries");
 
                 System.out.println("Give days to check the upcoming expires!");
@@ -74,13 +71,13 @@ public class Menu {
                 }
 
             case 3:
-                System.out.println("Pressed 3");
                 System.out.println("Fine calculation");
                 break;
             default:
                 System.err.println("Non acceptable input!");
                 System.exit(-1);
         }
+        dbConnection.closeDBConnection();
     }
 
 }
