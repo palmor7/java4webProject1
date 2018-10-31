@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public class DBConnection {
 
     private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/project1?useUnicode=true" + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/car_insurance?useUnicode=true" + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String DB_USER;
     private String DB_PASSWORD;
     private static Connection connection;

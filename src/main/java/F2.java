@@ -10,10 +10,12 @@ public class F2 {
 
     private int days;
     private Connection conn;
+    private ArrayList<String> Plates;
 
     F2(int days, Connection conn) {
         this.days = days;
         this.conn = conn;
+        Plates = new ArrayList<String>();
     }
 
     public void F2SQL(int days) throws SQLException, IOException {
@@ -21,26 +23,32 @@ public class F2 {
         Date nextDay = convertToDateViaSqlDate(LocalDate.now().plusDays(days));
         java.sql.Date date = getCurrentDatetime();
 
-        PreparedStatement statement = conn.prepareStatement("Select * from vehicle where ex_date between ? and ?");
-        statement.setDate(1, date);
-        statement.setDate(2, (java.sql.Date) nextDay);
+
+        PreparedStatement statement = conn.prepareStatement("Select plate, exp_date from vehicle");
 
         ResultSet rs = statement.executeQuery();
-        HashMap PlateDate = new HashMap();
         while (rs.next()) {
             String rsplate = rs.getString("plate");
-            Date rsex_date = rs.getDate("ex_date");
-            PlateDate.put(rsplate, rsex_date);
+            Date rsex_date = rs.getDate("exp_date");
+
+
+            if ((rsex_date.compareTo(date) == 1) && (rsex_date.compareTo(nextDay) == -1)) {
+                getPlates().add(rsplate);
+            }
+
         }
-        System.out.println(nextDay);
-        System.out.println(PlateDate);
         statement.close();
 
-        if (PlateDate.size() < 1) {
+        if (getPlates().size() < 1) {
             System.out.println("Results 0");
             return;
         }
-        System.out.println("Results " + PlateDate.size());
+        System.out.println("Results " + getPlates().size());
+
+        //f3
+        F3 f3 = new F3();
+        ArrayList test = f3.orderedPlates(Plates);
+
         System.out.println("Choose export format:");
         System.out.println("Press 1 for console");
         System.out.println("Press 2 for exported file");
@@ -55,11 +63,15 @@ public class F2 {
         }
         switch (num) {
             case 1:
-                System.out.println("<----- Forecoming_exriries ----->");
-                PlateDate.forEach((key, value) -> System.out.println(key + " : " + value));
+                System.out.println("<----- Forecoming_expiries ----->");
+                test.forEach((value) -> System.out.println(value));
                 break;
             case 2:
-                writeFile(PlateDate);
+                writeFile(test);
+                break;
+            default:
+                System.err.println("Non acceptable input!");
+                System.exit(-1);
 
         }
     }
@@ -73,13 +85,17 @@ public class F2 {
         return new java.sql.Date(today.getTime());
     }
 
-    private void writeFile(HashMap PlateDate) throws IOException {
-        FileWriter fileWriter = new FileWriter("forecoming_exriries.out");
+    private void writeFile(ArrayList<String> Plates) throws IOException {
+        FileWriter fileWriter = new FileWriter("forecoming_expiries.csv");
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.printf("<----- Forecoming_exriries ----->\n");
-        PlateDate.forEach((key, value) -> printWriter.printf(key + " : " + value +"\n"));
+        printWriter.printf("<----- Forecoming_expiries ----->\n");
+        Plates.forEach((value) -> printWriter.printf(value + ","));
 
         printWriter.close();
+    }
+
+    public ArrayList<String> getPlates() {
+        return Plates;
     }
 }
 

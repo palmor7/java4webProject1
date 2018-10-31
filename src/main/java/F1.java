@@ -10,25 +10,29 @@ public class F1 {
     }
 
     public void F1SQL() throws SQLException {
-        String query = "Select ex_date from vehicles where plate='" + this.plate + "'";
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(query);
-        while (rs.next()) {
+        String query = "Select exp_date from vehicle where plate=?";
 
-            Date rsex_date = rs.getDate("ex_date");
+        try (PreparedStatement st = conn.prepareStatement(query)) {
+            st.setString(1, plate);
+            ResultSet rs = st.executeQuery();
+            if(!rs.next()){
+                System.err.println("No result!");
+                System.exit(0);
+            }
+            while (rs.next()) {
+                Date rsex_date = rs.getDate("exp_date");
+                java.util.Date date = new java.util.Date();
+                System.out.println(date);
 
-            long millis = System.currentTimeMillis();
-            java.sql.Date date = new java.sql.Date(millis);
-
-            if (date.compareTo(rsex_date) == 1) {
-                System.out.println("Expired: " + rsex_date);
-            } else {
-                System.out.println("The insurance will exrpire: " + rsex_date);
+                if (date.compareTo(rsex_date) == 1) {
+                    System.out.println("Expired at: " + rsex_date);
+                } else {
+                    System.out.println("The insurance will expire at: " + rsex_date);
+                }
             }
         }
-        st.close();
-    }
 
+    }
 }
 
 
