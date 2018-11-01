@@ -72,7 +72,25 @@ public class Menu {
 
             case 3:
                 System.out.println("Fine calculation");
+                F4 f4 = new F4(connection);
+                System.out.println("Give the last name");
+                System.out.println("Give user name!");
+
+                scanner = new Scanner(System.in);
+                String last_name = scanner.nextLine();
+
+                System.out.println("Give the fine per car");
+
+                try {
+                    int fine = scanner.nextInt();
+                    f4.f4sql(last_name,fine);
+
+                } catch (InputMismatchException e) {
+                    System.err.println("Non acceptable input!");
+                    System.exit(-1);
+                }
                 break;
+
             default:
                 System.err.println("Non acceptable input!");
                 System.exit(-1);
