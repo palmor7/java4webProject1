@@ -53,7 +53,7 @@ public class Menu {
                 }
 
                 F1 f1 = new F1(givenPlate,connection );
-                f1.F1SQL();
+                f1.F1sql();
                 break;
             case 2:
                 System.out.println("Forecoming expiries");
@@ -63,7 +63,7 @@ public class Menu {
                 try {
                     int days = scanner.nextInt();
                     F2 f2 = new F2(days,connection );
-                    f2.F2SQL(days);
+                    f2.F2sql(days);
                     break;
                 } catch (InputMismatchException e) {
                     System.err.println("Non acceptable input!");
@@ -83,7 +83,7 @@ public class Menu {
 
                 try {
                     int fine = scanner.nextInt();
-                    f4.f4sql(last_name,fine);
+                    f4.F4sql(last_name,fine);
 
                 } catch (InputMismatchException e) {
                     System.err.println("Non acceptable input!");

@@ -18,7 +18,7 @@ public class F2 {
         Plates = new ArrayList<String>();
     }
 
-    public void F2SQL(int days) throws SQLException, IOException {
+    public void F2sql(int days) throws SQLException, IOException {
 
         Date nextDay = convertToDateViaSqlDate(LocalDate.now().plusDays(days));
         java.sql.Date date = getCurrentDatetime();
@@ -47,7 +47,7 @@ public class F2 {
 
         //f3
         F3 f3 = new F3();
-        ArrayList test = f3.orderedPlates(Plates);
+        ArrayList test = f3.OrderedPlates(Plates);
 
         System.out.println("Choose export format:");
         System.out.println("Press 1 for console");

@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class F3 {
-    public ArrayList<String> orderedPlates(ArrayList<String> arrayList){
+    public ArrayList<String> OrderedPlates(ArrayList<String> arrayList){
         System.out.println("Do you want it in alphanumerical order? (y/n)");
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();

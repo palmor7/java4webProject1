@@ -10,7 +10,7 @@ public class F1 {
         this.conn = conn;
     }
 
-    public void F1SQL() throws SQLException {
+    public void F1sql() throws SQLException {
         String query = "Select exp_date from vehicle where plate=?";
 
         try (PreparedStatement st = conn.prepareStatement(query)) {

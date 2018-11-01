@@ -7,7 +7,7 @@ public class F4 {
         this.conn = conn;
     }
 
-    public void f4sql(String last_name, int fine) throws SQLException {
+    public void F4sql(String last_name, int fine) throws SQLException {
         PreparedStatement p = conn.prepareStatement("Select exp_date from Vehicle v, User u where  u.last_name=? and u.id=v.user_id");
         p.setString(1, last_name);
 
